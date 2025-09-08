@@ -2,12 +2,11 @@ package com.afs.parkinglot;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StandardParkingBoyTest {
+class SmartParkingBoyTest {
 
     @Test
     public void should_return_ticket_when_parking_given_parking_lot_has_available_position() {
@@ -15,24 +14,14 @@ class StandardParkingBoyTest {
         ParkingLot parkingLot1 = new ParkingLot(3, 1);
         ParkingLot parkingLot2 = new ParkingLot(6, 2);
         ParkingLot parkingLot3 = new ParkingLot(9, 3);
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2, parkingLot3);
-        Car Car1 = new Car();
-        Car Car2 = new Car();
-        Car Car3 = new Car();
-        Car Car4 = new Car();
-        Car Car5 = new Car();
-        standardParkingBoy.parking(Car1);
-        standardParkingBoy.parking(Car2);
-        standardParkingBoy.parking(Car3);
-        standardParkingBoy.parking(Car4);
-        standardParkingBoy.parking(Car5);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2, parkingLot3);
         Car car = new Car();
         //when
-        Map<Ticket, Integer> ticketMap = standardParkingBoy.parking(car);
+        Map<Ticket, Integer> ticketMap = smartParkingBoy.parking(car);
         //then
         assertFalse(ticketMap.isEmpty());
         assertNotNull(ticketMap.keySet().iterator().next());
-        assertEquals(2, ticketMap.values().iterator().next());
+        assertEquals(3, ticketMap.values().iterator().next());
     }
 
     @Test
@@ -40,15 +29,15 @@ class StandardParkingBoyTest {
         //given
         ParkingLot parkingLot1 = new ParkingLot(1, 1);
         ParkingLot parkingLot2 = new ParkingLot(1, 2);
-        StandardParkingBoy standardParkingBoy = new StandardParkingBoy(parkingLot1, parkingLot2);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLot1, parkingLot2);
         Car car1 = new Car();
         Car car2 = new Car();
-        Car car3 = new Car();
-        standardParkingBoy.parking(car1);
-        standardParkingBoy.parking(car2);
+        Car car = new Car();
+        smartParkingBoy.parking(car1);
+        smartParkingBoy.parking(car2);
         //when
         Exception exception = assertThrows(RuntimeException.class, () -> {
-            standardParkingBoy.parking(car3);
+            smartParkingBoy.parking(car);
         });
         //then
         assertEquals("No available position.", exception.getMessage());
