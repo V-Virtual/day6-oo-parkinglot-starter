@@ -22,6 +22,14 @@ public class ParkingLot {
         return ticket;
     }
 
+    public List<Car> fetchCars(List<Car> cars, List<Ticket> tickets){
+        List<Car> fetchedCars = new ArrayList<>();
+        for(int i = 0; i < cars.size(); i++) {
+            fetchedCars.add(fetch(cars.get(i), tickets.get(i)));
+        }
+        return fetchedCars;
+    }
+
     public Car fetch(Car car, Ticket ticket){
         if(ticket == null) {
             throw new RuntimeException("No parking ticket.");
