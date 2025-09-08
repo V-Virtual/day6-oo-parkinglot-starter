@@ -15,7 +15,7 @@ public class ParkingLot {
 
     public Ticket parking(Car car){
         if(parkedCars.size() >= capacity) {
-            throw new RuntimeException("No enough position.");
+            throw new RuntimeException("No available position.");
         }
         Ticket ticket = new Ticket(false);
         parkedCars.put(ticket, car);

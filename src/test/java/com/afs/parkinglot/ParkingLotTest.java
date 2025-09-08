@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotTest {
 
@@ -16,9 +15,9 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(20);
         Car car = new Car();
         //When
-        parkingLot.parking(car);
+        Ticket ticket = parkingLot.parking(car);
         //Then
-        assertEquals(1, parkingLot.getParkedCars().size());
+        assertNotNull(ticket);
     }
 
     @Test
@@ -42,13 +41,13 @@ public class ParkingLotTest {
         Exception exception = assertThrows(RuntimeException.class, () -> {
             parkingLot.parking(car2);
         });
-        assertEquals("No enough position.", exception.getMessage());
+        assertEquals("No available position.", exception.getMessage());
     }
 
     @Test
     public void should_throw_exception_given_car_when_without_ticket(){
         //Given
-        ParkingLot parkingLot = new ParkingLot(1);
+        ParkingLot parkingLot = new ParkingLot(20);
         Car car = new Car();
         Ticket ticket = null;
         //When and Then
