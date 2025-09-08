@@ -15,17 +15,21 @@ public class ParkingLot {
 
     public Ticket parking(Car car){
         if(parkedCars.size() >= capacity) {
-            throw new RuntimeException("Not enough position.");
+            throw new RuntimeException("No enough position.");
         }
-        Ticket ticket = new Ticket();
+        Ticket ticket = new Ticket(false);
         parkedCars.put(ticket, car);
         return ticket;
     }
 
-    public Car fetch(Ticket ticket){
+    public Car fetch(Car car, Ticket ticket){
+        if(ticket == null) {
+            throw new RuntimeException("No parking ticket.");
+        }
         if(!parkedCars.containsKey(ticket)) {
             throw new RuntimeException("Unrecognized parking ticket.");
         }
+        ticket.setUsed(true);
         return parkedCars.remove(ticket);
     }
 
