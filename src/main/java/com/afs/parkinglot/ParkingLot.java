@@ -8,9 +8,15 @@ import java.util.Map;
 public class ParkingLot {
     private int capacity;
     private Map<Ticket, Car> parkedCars = new HashMap<Ticket, Car>();
+    private int parkingLotId;
 
     public ParkingLot(int capacity) {
         this.capacity = capacity;
+    }
+
+    public ParkingLot(int capacity, int parkingLotId) {
+        this.capacity = capacity;
+        this.parkingLotId = parkingLotId;
     }
 
     public Ticket parking(Car car){
@@ -49,5 +55,13 @@ public class ParkingLot {
 
     public Map<Ticket, Car> getParkedCars() {
         return parkedCars;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getParkingLotId() {
+        return parkingLotId;
     }
 }
