@@ -46,12 +46,41 @@ public class ParkingLotTest {
     public void should_throw_exception_given_parking_lot_and_car_when_without_ticket(){
         //Given
         ParkingLot parkingLot = new ParkingLot(1);
-        Car car1 = new Car();
+        Car car = new Car();
         Ticket ticket = null;
         //When and Then
         Exception exception = assertThrows(RuntimeException.class, () -> {
-            parkingLot.fetch(car1, ticket);
+            parkingLot.fetch(car, ticket);
         });
         assertEquals("No parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_throw_exception_given_parking_lot_and_car_when_ticket_not_contain(){
+        //Given
+        ParkingLot parkingLot = new ParkingLot(20);
+        Car car1 = new Car();
+        parkingLot.parking(car1);
+        Car car2 = new Car();
+        Ticket ticket = new Ticket(false);
+        //When and Then
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            parkingLot.fetch(car2, ticket);
+        });
+        assertEquals("Unrecognized parking ticket.", exception.getMessage());
+    }
+
+    @Test
+    public void should_throw_exception_given_parking_lot_and_car_when_ticket_used(){
+        //Given
+        ParkingLot parkingLot = new ParkingLot(20);
+        Car car = new Car();
+        Ticket ticket = parkingLot.parking(car);
+        parkingLot.fetch(car, ticket);
+        //When and Then
+        Exception exception = assertThrows(RuntimeException.class, () -> {
+            parkingLot.fetch(car, ticket);
+        });
+        assertEquals("Used parking ticket.", exception.getMessage());
     }
 }

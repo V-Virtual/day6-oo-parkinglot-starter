@@ -26,8 +26,14 @@ public class ParkingLot {
         if(ticket == null) {
             throw new RuntimeException("No parking ticket.");
         }
+        if(ticket.isUsed()) {
+            throw new RuntimeException("Used parking ticket.");
+        }
         if(!parkedCars.containsKey(ticket)) {
             throw new RuntimeException("Unrecognized parking ticket.");
+        }
+        if(!parkedCars.get(ticket).equals(car)) {
+            throw new RuntimeException("Wrong parking ticket.");
         }
         ticket.setUsed(true);
         return parkedCars.remove(ticket);
